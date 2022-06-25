@@ -28,6 +28,7 @@ const AddDetection = ({dataId, onActualAddDetection, onCancel}) => {
 
         setDetection({...detection, product : productResponse.data[0].product,
                                     vendor :  productResponse.data[0].vendor,
+                                    advisory :  productResponse.data[0].advisory,
                                     niah_product_id : searchTxt,
                                     type :  productResponse.data[0].type});
                                     
