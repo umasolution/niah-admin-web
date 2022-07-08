@@ -10,7 +10,7 @@ const AddDetection = ({dataId, onActualAddDetection, onCancel}) => {
 
     const [detection, setDetection ] = useState({
                                                     advisory: "",
-                                                    meta_info: {os:'', platform: ''},
+                                                    //meta_info: {os:'', platform: ''},   {/* issue 9 : 24/06/2022 */ }
                                                     niah_product_id: "",
                                                     niah_version_id: "NIAH-VERSION-XXX-YYYY-" + dataId,
                                                     product: "",
@@ -24,17 +24,19 @@ const AddDetection = ({dataId, onActualAddDetection, onCancel}) => {
     console.log(detection);
 
     const onSearch = async (searchTxt) => {
-        const productResponse = await fetchProductApi({product_id:searchTxt});
+        const productResponse = await fetchProductApi({ product_id: searchTxt });
+        {/*Issue 10 : 24/06/2022 */ }
+        productResponse.data.length > 0 ? (
+            setDetection({
+                ...detection, advisory: productResponse.data[0].advisory,
+                product: productResponse.data[0].product,
+                vendor: productResponse.data[0].vendor,
+                niah_product_id: searchTxt,
+                type: productResponse.data[0].type
+            })
 
-        setDetection({...detection, product : productResponse.data[0].product,
-                                    vendor :  productResponse.data[0].vendor,
-                                    advisory :  productResponse.data[0].advisory,
-                                    niah_product_id : searchTxt,
-                                    type :  productResponse.data[0].type});
-                                    
-                                    console.log(detection);
-
-        
+        ) :
+            console.log(detection);
     }
 
     const onVersionIdChange = (e,index) =>{
@@ -59,6 +61,15 @@ const AddDetection = ({dataId, onActualAddDetection, onCancel}) => {
 
     const onChangeMeta = (e, key)=> {
         setDetection({...detection, meta_info:{...detection.meta_info, [key]: e.target.value } })
+    }
+
+    const onDisableAdd = () => {
+        {/* Issue 7: 22/06/2022 */}
+       if(detection.advisory == "" ||  detection.product == "" || detection.type == "" || 
+       detection.vendor == ""
+       ){
+           return true
+       }
     }
     return (
         <Grid container>
@@ -121,30 +132,34 @@ const AddDetection = ({dataId, onActualAddDetection, onCancel}) => {
 
             </Grid>
             
-            <Grid xs={12} style={{display : 'flex'}}>
-                    <TextField
-                            label= 'OS'
-                            value={detection.meta_info.os}
-                            InputProps={{
-                                readOnly: false,
-                            }}
-                            size='small'
-                            onChange = {(e)=> onChangeMeta(e, 'os') }
-                            style={{ margin: '5px', width: '25%', color: 'rgb(97, 97, 97)' }}
-                        />
+         {
+                /*  Issue 9 : 24/06/2022
+     <Grid xs={12} style={{display : 'flex'}}>
                         <TextField
-                            label= 'Platform'
-                            value={detection.meta_info.platform}
-                            InputProps={{
-                                readOnly: false,
-                            }}
-                            size='small'
-                            onChange = {(e)=> onChangeMeta(e, 'platform') }
-                            style={{ margin: '5px', width: '25%', color: 'rgb(97, 97, 97)' }}
-                        />
-            </Grid>
+                                label= 'OS'
+                                value={detection.meta_info.os}
+                                InputProps={{
+                                    readOnly: false,
+                                }}
+                                size='small'
+                                onChange = {(e)=> onChangeMeta(e, 'os') }
+                                style={{ margin: '5px', width: '25%', color: 'rgb(97, 97, 97)' }}
+                            />
+                            <TextField
+                                label= 'Platform'
+                                value={detection.meta_info.platform}
+                                InputProps={{
+                                    readOnly: false,
+                                }}
+                                size='small'
+                                onChange = {(e)=> onChangeMeta(e, 'platform') }
+                                style={{ margin: '5px', width: '25%', color: 'rgb(97, 97, 97)' }}
+                            />
+                </Grid>
+                */
+            }  
             
-            <Button variant = 'contained' onClick={onAdd}>Add</Button>
+            <Button variant = 'contained' disabled={onDisableAdd()} onClick={onAdd}>Add</Button>
             <Button variant = 'contained' onClick={onCancel}>Cancel</Button>
         </Grid>
     )

@@ -253,10 +253,13 @@ const ProductDetails = () => {
                         </Select>
                     </Grid>
                     <Grid xs={2}>
+                          {/* Issue 1: 22-06-2022} */}
                         <Button variant="contained"
                             style={{ witdh: '100%', display: 'flex', justifyItems: 'flex-end', margin : '5px' }}
                             onClick={onSave}
-                            disabled = {productStatus == 'assign'}
+                            disabled = {productStatus == 'assign' ||
+                            productDetails.meta_data[""] == ""
+                        }
                         >Save</Button>
                     </Grid>
                     <Grid xs={8}>

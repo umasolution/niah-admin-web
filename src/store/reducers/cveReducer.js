@@ -81,6 +81,14 @@ const cveReducer = (state = initalState, action) => {
 
             return ForDescAdd;
 
+            case actionTypes.DEL_DESC:
+                 {/* CVE issue 8 : 24/06/2022 */ }
+                let delDescription = JSON.parse(JSON.stringify(state));
+
+                delete delDescription.cvedetails.description[action.data.key]
+
+                return delDescription;
+    
         case actionTypes.DEL_REF_DATA:
             let ForDel = JSON.parse(JSON.stringify(state));
 
@@ -223,8 +231,15 @@ const cveReducer = (state = initalState, action) => {
             
                             return updateDetailArray1;
             
+        case actionTypes.RETURN_CVE_INITIAL_SEARCH:
+            {/* Product issue 3 : 24/06/2022 */ }
+            let updateCVESearch = JSON.parse(JSON.stringify(state))
 
-
+            updateCVESearch.searchCriteria.map((search) => (
+                search.userValue = ""
+            ))
+            return updateCVESearch;
+ 
         default:
             return state;
     }

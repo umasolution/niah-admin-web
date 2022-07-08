@@ -22,6 +22,7 @@ export const UPDATE_DESC = '@authentication/UPDATE_DESC'
 export const UPDATE_CVE_STATUS = '@authentication/UPDATE_CVE_STATUS'
 export const SET_SEARCH_CRITERIA = '@authentication/SET_SEARCH_CRITERIA'
 export const ADD_DESC = '@authentication/ADD_DESC'
+export const DEL_DESC = '@authentication/DEL_DESC'
 export const ADD_DETECTION = '@authentication/ADD_DETECTION'
 export const UPDATE_BASE_METRIC_V2 = '@authentication/UPDATE_BASE_METRIC_V2';
 export const UPDATE_BASE_METRIC_V3 = '@authentication/UPDATE_BASE_METRIC_V3';
@@ -35,6 +36,7 @@ export const SET_CVE_DETAILS_BY_VERSION = '@authentication/SET_CVE_DETAILS_BY_VE
 export const ADD_UPDATED_CVE_DETAIL_VERSION = '@product/ADD_UPDATED_CVE_DETAIL_VERSION'
 export const UPDATE_CVE_PAGE = '@product/UPDATE_CVE_PAGE'
 export const DEL_DETECTION = '@authentication/DEL_DETECTION'
+export const RETURN_CVE_INITIAL_SEARCH = '@authentication/RETURN_CVE_INITIAL_SEARCH'
 
 
 
@@ -50,5 +52,6 @@ export const UPDATE_NON_DATA = '@product/UPDATE_NON_DATA'
 export const ADD_UPDATED_PRODUCT_DETAIL_VERSION = '@product/ADD_UPDATED_PRODUCT_DETAIL_VERSION'
 export const SET_PRODUCT_DETAILS_BY_VERSION = '@product/SET_PRODUCT_DETAILS_BY_VERSION'
 export const UPDATE_PRODUCT_PAGE = '@product/UPDATE_PRODUCT_PAGE'
+export const RETURN_PRODUCT_INITIAL_SEARCH = '@product/RETURN_PRODUCT_INITIAL_SEARCH';
 
 

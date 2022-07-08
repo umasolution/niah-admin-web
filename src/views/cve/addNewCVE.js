@@ -4,7 +4,12 @@ import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_CVE, ADD_REF_DATA, ADD_VERSION, DEL_CVE, DEL_REF_DATA, DEL_VERSION, SET_SELECTED_CVE, UPDATE_CVE_STATUS, UPDATE_DESC, ADD_DESC, ADD_DETECTION, UPDATE_BASE_METRIC_V2, UPDATE_BASE_METRIC_V3, UPDATE_CVE_DETAILS, ADD_BASEMETRIC_V2, ADD_BASEMETRIC_V3, DEL_BASEMETRIC_V2, DEL_BASEMETRIC_V3 } from 'store/actions';
+import {
+    ADD_CVE, ADD_REF_DATA, ADD_VERSION, DEL_CVE, DEL_REF_DATA,
+    DEL_VERSION, SET_SELECTED_CVE, UPDATE_CVE_STATUS, UPDATE_DESC, ADD_DESC,
+    ADD_DETECTION, UPDATE_BASE_METRIC_V2, UPDATE_BASE_METRIC_V3, UPDATE_CVE_DETAILS,
+    ADD_BASEMETRIC_V2, ADD_BASEMETRIC_V3, DEL_BASEMETRIC_V2, DEL_BASEMETRIC_V3, DEL_DESC
+} from 'store/actions';
 import DeletableChips from 'ui-component/Chips/deletableChips';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -47,7 +52,6 @@ const AddNewCVE = () => {
     }, [])
 
     const cvedetails = useSelector(state => state.cve.cvedetails);
-
     const stylz = styless();
     const dispatch = useDispatch();
 
@@ -91,7 +95,20 @@ const AddNewCVE = () => {
     }
 
     const onAddVersion = (versionInput, index) => {
+        {/* Issue 2: 22-06-2022} */}
+        let duplicate = false
+        cvedetails.detection.map((detect, detailsIndex) => {
+            detect.versions.map((versionData, versionIndex) => {
+                if((versionData.patch == versionInput.patch || versionData.version == versionInput.version)
+                    && (index == detailsIndex || index == versionIndex)
+                    ){
+                   duplicate = true
+                }
+            })
+        })
+        if(duplicate == false){
         dispatch({ type: ADD_VERSION, data: versionInput, index: index });
+        }
     }
 
     const onDeleteVersion = (index, versionIndex) => {
@@ -188,7 +205,26 @@ const AddNewCVE = () => {
 
     }
 
+    const disableAddCVE = () => {
+          {/* Issue 1,7: 24-6-2022*/}
+        if(cvedetails.basemetricv3_data[""] == "" || cvedetails.basemetricv2_data[""] == "" ||
+        cvedetails.data_id == "" || cvedetails.data_type == ""
+        ){
+            return true
+        }
+    }
     
+    const onDeleteDesc = (txt, key, index) => {
+        {/* Issue 8: 24-6-2022*/}
+        dispatch({ type: DEL_DESC,data: { txt: txt, key, index }})
+    };
+
+    const onAddCWEId = () => {
+        {/* Issue 5: 24-6-2022*/}
+       dispatch({ type: ADD_CVE, data: cweInput })
+       setCWEInput("")
+   }
+
 
     return (
         <>
@@ -282,7 +318,7 @@ const AddNewCVE = () => {
                     <Grid xs={12}>
                         <div style={{ margin: '5px' }}>
                             <TextField size="small" value={cweInput} onChange={e => setCWEInput(e.target.value)} />
-                            <AddCircle  onClick={() => dispatch({ type: ADD_CVE, data: cweInput })} style={{marginTop : '10px'}} ></AddCircle>
+                            <AddCircle  onClick={() => onAddCWEId()} style={{marginTop : '10px'}} ></AddCircle>
                         </div>
                     </Grid>
                     <Grid xs={12}>
@@ -396,12 +432,16 @@ const AddNewCVE = () => {
             </MainCard>
             <MainCard title="Description">
             <Grid xs={12}>
-                        {
+                   {/* Issue 8: 24-6-2022*/}
+                   {
                             Object.entries(cvedetails.description)
-                                .map(([key, value]) => {
+                                .map(([key, value], index) => {
                                     if (typeof cvedetails.description[key] == 'string') {
                                         return (<SubCard title={key}>
-                                           <RichEditor data={cvedetails.description[key]} onSave = {updateDescChange} keyy= {key}/>
+                                            <RichEditor data={cvedetails.description[key]}
+                                                onSave={updateDescChange} keyy={key} descIndex={index}
+                                                onDeleteDesc={onDeleteDesc}
+                                            />
                                         </SubCard>)
                                     }
                                 })
@@ -499,8 +539,9 @@ const AddNewCVE = () => {
                                     <Button variant='contained'  onClick={() => setAddDetection(!addDetection)}>Add New Detection</Button>
                 }
                  <Grid xs={12} style={{float : 'right', display:'flex'}}>
-    
-                        <Button variant='contained' style={{margin:'2px'}} onClick={onAddNewCVE} >Add CVE</Button>    
+                        <Button variant='contained' style={{margin:'2px'}} onClick={onAddNewCVE}
+                        disabled={disableAddCVE()}
+                        >Add CVE</Button>    
                         {
                             showStatus()
                         }

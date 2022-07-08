@@ -111,6 +111,15 @@ const ProductReducer = (state = initalState, action) => {
                 updateDetailArray1.productDetails = state.productdetailsArray.filter(product=>product.revision == action.data)[0];
 
                 return updateDetailArray1;
+
+        case actionTypes.RETURN_PRODUCT_INITIAL_SEARCH:
+            {/* Product issue 3 : 24/06/2022 */}
+            let updateSearchValues = JSON.parse(JSON.stringify(state))
+
+            updateSearchValues.searchCriteria.map((search) => (
+                search.userValue = ""
+            ))
+            return updateSearchValues
         default:
             return state;
     }

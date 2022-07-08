@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -39,11 +39,13 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import { logout } from 'api/authApis';
+import { MENU_OPEN, RETURN_CVE_INITIAL_SEARCH, RETURN_PRODUCT_INITIAL_SEARCH } from 'store/actions';
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
     const theme = useTheme();
+    const dispatch = useDispatch()
     const customization = useSelector((state) => state.customization);
     const navigate = useNavigate();
 
@@ -60,6 +62,13 @@ const ProfileSection = () => {
     const anchorRef = useRef(null);
     const handleLogout = async () => {
         console.log('Logout');
+         {/* Product Isssue 2 : 24/06/2022 */}
+        dispatch({ type: MENU_OPEN, id: 'sample-page' });
+
+        {/* Product issue 3 : 24/06/2022 */ }
+        dispatch({ type: RETURN_PRODUCT_INITIAL_SEARCH });
+        dispatch({ type: RETURN_CVE_INITIAL_SEARCH });
+
     };
 
     const handleClose = (event) => {

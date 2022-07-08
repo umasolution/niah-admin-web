@@ -64,6 +64,15 @@ const NavItem = ({ item, level }) => {
         // eslint-disable-next-line
     }, []);
 
+    const setSelected = () => {
+        {/* Product Isssue 2 : 24/06/2022 */}
+        if(customization.isOpen.length > 0){
+            return customization.isOpen.findIndex((id) => id === item.id) > -1
+        }else{
+            return item.id == 'sample-page'
+        }
+    }
+
     return (
         <ListItemButton
             {...listItemProps}
@@ -76,7 +85,7 @@ const NavItem = ({ item, level }) => {
                 py: level > 1 ? 1 : 1.25,
                 pl: `${level * 24}px`
             }}
-            selected={customization.isOpen.findIndex((id) => id === item.id) > -1}
+            selected={setSelected()}
             onClick={() => itemHandler(item.id)}
         >
             <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>

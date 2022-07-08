@@ -165,8 +165,10 @@ const AddProduct = () => {
                         {
                             showStatus()
                         }
-                       
-                        <Button variant='contained' style={{margin:'2px',float:'right'}} onClick={onAddProduct} >Add Product</Button>    
+                         {/* Issue 1: 22-06-2022} */}
+                        <Button variant='contained' style={{margin:'2px',float:'right'}} onClick={onAddProduct}
+                        disabled = {productDetails.meta_data[""] == ""}
+                        >Add Product</Button>    
                     </Grid>
                 </Grid>
             </MainCard>

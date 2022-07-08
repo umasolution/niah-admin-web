@@ -6,7 +6,7 @@ import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./styles.css";
 import { Button, Grid } from "@mui/material";
-const RichEditor = ({data, onSave, keyy}) => {
+const RichEditor = ({data, onSave, keyy, onDeleteDesc, descIndex}) => {
     useEffect(()=>{setConvertedContent(data)},[data])
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
@@ -34,7 +34,13 @@ const RichEditor = ({data, onSave, keyy}) => {
         }
         setEdit(!isEdit);
     };
+
+    const onDelete = () => {
+        {/* CVE issue 8 : 24/06/2022 */ }
+        onDeleteDesc(convertedContent, keyy, descIndex)
+    };
     return (
+
         <div className="App">
             {isEdit ? (
                 <>
@@ -60,6 +66,7 @@ const RichEditor = ({data, onSave, keyy}) => {
                     </Grid>
                     <Grid xs={1}>
                         <Button onClick={onEdit}>Edit</Button>
+                        <Button onClick={onDelete}>Delete</Button>
                     </Grid>
 
                 </Grid>
