@@ -36,7 +36,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {register} from '../../../../api/authApis';
+import { register } from '../../../../api/authApis';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -132,8 +132,8 @@ const FirebaseRegister = ({ ...others }) => {
                 initialValues={{
                     email: '',
                     password: '',
-                    fname : '',
-                    lname : '',
+                    fname: '',
+                    lname: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -148,7 +148,7 @@ const FirebaseRegister = ({ ...others }) => {
 
                             const regResponse = await register(values.email, values.password, values.fname, values.lname);
                             //dispatch({type:SET_AUTHENTICATED, authenticated :  true});
-                            navigate('/niah/login');
+                            navigate('/login');
                         }
                     } catch (err) {
                         console.error(err);

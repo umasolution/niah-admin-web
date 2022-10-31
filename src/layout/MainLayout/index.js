@@ -14,7 +14,7 @@ import Customization from '../Customization';
 import navigation from 'menu-items';
 import { drawerWidth } from 'store/constant';
 import { SET_MENU, SET_PROFILE } from 'store/actions';
-import {getProfile} from 'api/authApis'
+import { getProfile } from 'api/authApis';
 import { useNavigate } from 'react-router';
 
 // assets
@@ -81,32 +81,25 @@ const MainLayout = () => {
     useEffect(() => {
         dispatch({ type: SET_MENU, opened: !matchDownMd });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-
-
-
     }, [matchDownMd]);
 
     useEffect(() => {
         //dispatch({ type: SET_MENU, opened: !matchDownMd });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        
         //getProfileDetails();
-
     }, []);
 
-    const getProfileDetails = async()=>{
+    const getProfileDetails = async () => {
         const profile = await getProfile();
-        dispatch({type:SET_PROFILE, profile:profile.data});
-    }
+        dispatch({ type: SET_PROFILE, profile: profile.data });
+    };
     const authentication = useSelector((state) => state.authentication);
 
-
-  /*  if(!authentication.authenticated) {
+    /*  if(!authentication.authenticated) {
         return <div>Login Failed</div>
     }*/
 
-    if(!authentication.authenticated)
-         navigate('/niah/login');
+    if (!authentication.authenticated) navigate('/login');
 
     return (
         <Box sx={{ display: 'flex' }}>

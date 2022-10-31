@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // material-ui
@@ -16,7 +16,6 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-   
     OutlinedInput,
     Stack,
     Typography,
@@ -41,7 +40,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 
-import {login} from '../../../../api/authApis';
+import { login } from '../../../../api/authApis';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -67,7 +66,6 @@ const FirebaseLogin = ({ ...others }) => {
         event.preventDefault();
     };
 
-   
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -144,17 +142,18 @@ const FirebaseLogin = ({ ...others }) => {
                         if (scriptedRef.current) {
                             setStatus({ success: true });
                             setSubmitting(false);
-                            
-                            const loggin = await login(values.email, values.password);
-                            if(!loggin)
-                                return;
-                            dispatch({type:SET_AUTHENTICATED, 
-                                        authenticated :  true, 
-                                        username : values.email.split('@')[0],
-                                        firstname :  loggin.firstname,
-                                        lastname : loggin.lastname});
 
-                            navigate('/niah/main');
+                            const loggin = await login(values.email, values.password);
+                            if (!loggin) return;
+                            dispatch({
+                                type: SET_AUTHENTICATED,
+                                authenticated: true,
+                                username: values.email.split('@')[0],
+                                firstname: loggin.firstname,
+                                lastname: loggin.lastname
+                            });
+
+                            navigate('/');
                         }
                     } catch (err) {
                         console.error(err);
@@ -234,11 +233,13 @@ const FirebaseLogin = ({ ...others }) => {
                                 }
                                 label="Remember me"
                             />
-                            <Typography variant="subtitle1" color="secondary" 
-                                        sx={{ textDecoration: 'none', cursor: 'pointer' }}
-                                        component={Link}
-                                        to="/niah/forgotpassword"
-                                       >
+                            <Typography
+                                variant="subtitle1"
+                                color="secondary"
+                                sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                                component={Link}
+                                to="/forgotpassword"
+                            >
                                 Forgot Password?
                             </Typography>
                         </Stack>

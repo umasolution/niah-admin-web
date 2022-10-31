@@ -7,7 +7,7 @@ import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonEarningCard from 'ui-component/cards/Skeleton/IndevCard';
 
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
@@ -17,6 +17,7 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import { useSelector } from 'react-redux';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -54,19 +55,14 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     }
 }));
 
-// ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
+// ===========================|| DASHBOARD DEFAULT - INDEV VULNERABILITIES CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const IndevCard = ({ isLoading, data }) => {
     const theme = useTheme();
+    const dashboardType = useSelector((state) => state.dashboard.currentDashboard);
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
+    const routeToTableData = () => {
+        console.log('Route to Data Table');
     };
 
     return (
@@ -88,55 +84,10 @@ const EarningCard = ({ isLoading }) => {
                                                 backgroundColor: theme.palette.secondary[800],
                                                 mt: 1
                                             }}
+                                            onClick={() => console.log('........Clicked.....')}
                                         >
                                             <img src={EarningIcon} alt="Notification" />
                                         </Avatar>
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar
-                                            variant="rounded"
-                                            sx={{
-                                                ...theme.typography.commonAvatar,
-                                                ...theme.typography.mediumAvatar,
-                                                backgroundColor: theme.palette.secondary.dark,
-                                                color: theme.palette.secondary[200],
-                                                zIndex: 1
-                                            }}
-                                            aria-controls="menu-earning-card"
-                                            aria-haspopup="true"
-                                            onClick={handleClick}
-                                        >
-                                            <MoreHorizIcon fontSize="inherit" />
-                                        </Avatar>
-                                        <Menu
-                                            id="menu-earning-card"
-                                            anchorEl={anchorEl}
-                                            keepMounted
-                                            open={Boolean(anchorEl)}
-                                            onClose={handleClose}
-                                            variant="selectedMenu"
-                                            anchorOrigin={{
-                                                vertical: 'bottom',
-                                                horizontal: 'right'
-                                            }}
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right'
-                                            }}
-                                        >
-                                            <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
-                                            </MenuItem>
-                                        </Menu>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -144,7 +95,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
+                                            {data}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -169,7 +120,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    Indev
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -180,8 +131,8 @@ const EarningCard = ({ isLoading }) => {
     );
 };
 
-EarningCard.propTypes = {
+IndevCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default IndevCard;

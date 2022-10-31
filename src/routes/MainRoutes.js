@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // project imports
 import MainLayout from 'layout/MainLayout';
@@ -7,7 +7,6 @@ import Loadable from 'ui-component/Loadable';
 import { AutoFixHighOutlined } from '@mui/icons-material';
 import AddProduct from 'views/product/addProduct';
 import AddNewCVE from 'views/cve/addNewCVE';
-
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -32,22 +31,19 @@ const ProductDetail = Loadable(lazy(() => import('views/product/productDetail'))
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-
-
-
 const ProtectedRoutes = () => {
     const authentication = useSelector((state) => state.authentication);
 
-    return authentication.authenticated ? MainRoutes : ErrorRoute
-}
+    return authentication.authenticated ? MainRoutes : ErrorRoute;
+};
 
 const ErrorRoute = {
     path: '/error',
-    element : <AuthLogin3 />
-}
+    element: <AuthLogin3 />
+};
 
 const MainRoutes = {
-    path: '/main',
+    path: '',
     element: <MainLayout />,
     children: [
         {
@@ -101,8 +97,7 @@ const MainRoutes = {
         {
             path: '/addcve',
             element: <AddNewCVE />
-        },
-
+        }
     ]
 };
 

@@ -22,25 +22,22 @@ const Logout = () => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
     const [errorMsg, setErrorMsg] = useState('');
-    const [credentials, setCredentials] = useState({username: '', password : '', confirmPassword : ''});
+    const [credentials, setCredentials] = useState({ username: '', password: '', confirmPassword: '' });
 
     const resetCreds = async () => {
-        const response  =  await resetPassword(credentials.username, credentials.confirmPassword);
+        const response = await resetPassword(credentials.username, credentials.confirmPassword);
 
-        if(response.data.status == 'fail'){
-            setErrorMsg("Credentials cannot be updated !")
-        }else if(response.data.status == 'ok'){
-            setErrorMsg("Password has been resetted !")
+        if (response.data.status == 'fail') {
+            setErrorMsg('Credentials cannot be updated !');
+        } else if (response.data.status == 'ok') {
+            setErrorMsg('Password has been resetted !');
         }
-    }
+    };
 
     const onChangeCredentials = (key, value) => {
         setErrorMsg('');
-        setCredentials({...credentials, [key] : value});
-       
-    }
-
-    
+        setCredentials({ ...credentials, [key]: value });
+    };
 
     return (
         <AuthWrapper1>
@@ -82,27 +79,17 @@ const Logout = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} style= {{display : 'flex', alignItems : 'center', flexDirection : 'column'}}>
-                                     
-                                      <Typography
-                                              
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none', color:'red' }}
-                                            >
-                                             Application has been logged out.
-                                    </Typography>
+                                    <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                        <Typography variant="subtitle1" sx={{ textDecoration: 'none', color: 'red' }}>
+                                            Application has been logged out.
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={Link}
-                                                to="/niah//login"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
+                                            <Typography component={Link} to="/login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
                                                 Log In
                                             </Typography>
                                         </Grid>

@@ -9,23 +9,20 @@ import Customization from '../Customization';
 // ==============================|| MINIMAL LAYOUT ||============================== //
 
 const MinimalLayout = () => {
-
     const authentication = useSelector((state) => state.authentication);
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        
-
-        if(authentication.authenticated && window.location.pathname == '/niah/login'){
-            navigate('/niah/main');
+    useEffect(() => {
+        if (authentication.authenticated && window.location.pathname == '/login') {
+            navigate('/');
         }
-
-
-    }, [])
-    return <>
-        <Outlet />
-        <Customization />
-    </>
-}
+    }, []);
+    return (
+        <>
+            <Outlet />
+            <Customization />
+        </>
+    );
+};
 
 export default MinimalLayout;

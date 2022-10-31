@@ -49,9 +49,13 @@ const NavItem = ({ item, level }) => {
 
     const itemHandler = (id) => {
         dispatch({ type: MENU_OPEN, id });
+        console.log('........');
         if (matchesSM) dispatch({ type: SET_MENU, opened: false });
     };
 
+    useEffect(() => {
+        setSelected();
+    }, [document.location.pathname]);
     // active menu item on page load
     useEffect(() => {
         const currentIndex = document.location.pathname
@@ -65,13 +69,16 @@ const NavItem = ({ item, level }) => {
     }, []);
 
     const setSelected = () => {
-        {/* Product Isssue 2 : 24/06/2022 */}
-        if(customization.isOpen.length > 0){
-            return customization.isOpen.findIndex((id) => id === item.id) > -1
-        }else{
-            return item.id == 'sample-page'
+        {
+            /* Product Isssue 2 : 24/06/2022 */
         }
-    }
+
+        if (customization.isOpen.length > 0) {
+            return customization.isOpen.findIndex((id) => id === item.id) > -1;
+        } else {
+            return item.id == 'sample-page';
+        }
+    };
 
     return (
         <ListItemButton

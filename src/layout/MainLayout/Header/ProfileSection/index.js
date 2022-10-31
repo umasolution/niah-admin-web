@@ -45,11 +45,11 @@ import { MENU_OPEN, RETURN_CVE_INITIAL_SEARCH, RETURN_PRODUCT_INITIAL_SEARCH } f
 
 const ProfileSection = () => {
     const theme = useTheme();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const customization = useSelector((state) => state.customization);
     const navigate = useNavigate();
 
-    const profile = useSelector(state => state.authentication.profile.general);
+    const profile = useSelector((state) => state.authentication.profile.general);
 
     const [sdm, setSdm] = useState(true);
     const [value, setValue] = useState('');
@@ -62,13 +62,16 @@ const ProfileSection = () => {
     const anchorRef = useRef(null);
     const handleLogout = async () => {
         console.log('Logout');
-         {/* Product Isssue 2 : 24/06/2022 */}
+        {
+            /* Product Isssue 2 : 24/06/2022 */
+        }
         dispatch({ type: MENU_OPEN, id: 'sample-page' });
 
-        {/* Product issue 3 : 24/06/2022 */ }
+        {
+            /* Product issue 3 : 24/06/2022 */
+        }
         dispatch({ type: RETURN_PRODUCT_INITIAL_SEARCH });
         dispatch({ type: RETURN_CVE_INITIAL_SEARCH });
-
     };
 
     const handleClose = (event) => {
@@ -99,14 +102,10 @@ const ProfileSection = () => {
         prevOpen.current = open;
     }, [open]);
 
-
     const onLogout = () => {
         logout();
-        navigate("/niah/logout")
-
-    }
-
-    
+        navigate('/logout');
+    };
 
     return (
         <>
@@ -185,13 +184,11 @@ const ProfileSection = () => {
                                             </Stack>
                                             <Typography variant="subtitle2">Project Admin</Typography>
                                         </Stack>
-                                   
+
                                         <Divider />
                                     </Box>
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
-                                        
-                                           
                                             <List
                                                 component="nav"
                                                 sx={{
@@ -218,7 +215,7 @@ const ProfileSection = () => {
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
                                                 </ListItemButton>
-                              
+
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 4}
@@ -227,7 +224,13 @@ const ProfileSection = () => {
                                                     <ListItemIcon>
                                                         <IconLogout stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>
-                                                    <ListItemText primary={<Typography variant="body2" onClick = {onLogout}>Logout</Typography>} />
+                                                    <ListItemText
+                                                        primary={
+                                                            <Typography variant="body2" onClick={onLogout}>
+                                                                Logout
+                                                            </Typography>
+                                                        }
+                                                    />
                                                 </ListItemButton>
                                             </List>
                                         </Box>

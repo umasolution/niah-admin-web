@@ -14,7 +14,7 @@ const other = {
             id: 'sample-page',
             title: 'Dashboard',
             type: 'item',
-            url: '/main',
+            url: '',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },
@@ -22,7 +22,7 @@ const other = {
             id: 'cve',
             title: 'CVE',
             type: 'item',
-            url: '/main/cve',
+            url: '/cve',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },
@@ -30,11 +30,10 @@ const other = {
             id: 'product',
             title: 'Products',
             type: 'item',
-            url: '/main/product',
+            url: '/product',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
-        },
-       
+        }
     ]
 };
 

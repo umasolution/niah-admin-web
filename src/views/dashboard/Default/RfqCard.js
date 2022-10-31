@@ -10,7 +10,7 @@ import Chart from 'react-apexcharts';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/IndevCard';
 
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 import ChartDataYear from './chart-data/total-order-year-line-chart';
@@ -63,7 +63,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading }) => {
+const RfqCard = ({ isLoading, data }) => {
     const theme = useTheme();
 
     const [timeValue, setTimeValue] = useState(false);
@@ -95,26 +95,6 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                             <LocalMallOutlinedIcon fontSize="inherit" />
                                         </Avatar>
                                     </Grid>
-                                    <Grid item>
-                                        <Button
-                                            disableElevation
-                                            variant={timeValue ? 'contained' : 'text'}
-                                            size="small"
-                                            sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, true)}
-                                        >
-                                            Month
-                                        </Button>
-                                        <Button
-                                            disableElevation
-                                            variant={!timeValue ? 'contained' : 'text'}
-                                            size="small"
-                                            sx={{ color: 'inherit' }}
-                                            onClick={(e) => handleChangeTime(e, false)}
-                                        >
-                                            Year
-                                        </Button>
-                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item sx={{ mb: 0.75 }}>
@@ -128,7 +108,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                     </Typography>
                                                 ) : (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $961
+                                                        {data}
                                                     </Typography>
                                                 )}
                                             </Grid>
@@ -152,7 +132,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    Ready for QA
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -170,8 +150,8 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
     );
 };
 
-TotalOrderLineChartCard.propTypes = {
+RfqCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default TotalOrderLineChartCard;
+export default RfqCard;
